@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import base64
 import os
+import time
 from dataclasses import dataclass
 
 # USD per token, used when the API does not report a cost itself.
@@ -36,7 +37,19 @@ def _cost(model: str, pt: int, ct: int) -> float:
     return pt * pi + ct * po
 
 
-def chat(system: str, user: str, image_jpeg: bytes | None = None, max_tokens: int = 2500) -> LLMReply:
+def chat(system: str, user: str, image_jpeg: bytes | None = None, max_tokens: int = 1800) -> LLMReply:
+    """One call with retries on rate limits / transient credit-reservation errors."""
+    for n in range(6):
+        try:
+            return _chat(system, user, image_jpeg, max_tokens)
+        except Exception as e:  # noqa: BLE001
+            code = getattr(e, "status_code", None)
+            if n == 5 or code not in (402, 429, 500, 502, 503, 529, None):
+                raise
+            time.sleep(3 * 2**n)
+
+
+def _chat(system: str, user: str, image_jpeg: bytes | None = None, max_tokens: int = 2500) -> LLMReply:
     prov, model = provider(), model_name()
     if prov == "anthropic":
         import anthropic

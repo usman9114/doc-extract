@@ -24,7 +24,7 @@ mode = st.sidebar.radio("Extraction mode", ["text", "vision"],
                         format_func=lambda m: "A: OCR text to LLM" if m == "text" else "B: image to vision LLM",
                         index=0 if os.environ.get("EXTRACT_MODE", "text") == "text" else 1)
 up = st.file_uploader("Upload a receipt or invoice (JPG, PNG, PDF)", type=["jpg", "jpeg", "png", "pdf"])
-sample = Path("assets/sample_receipt.jpg")
+sample = Path("assets/sample_receipt.png")
 if up is None and sample.exists() and st.button("Use sample receipt"):
     st.session_state["sample"] = True
 data, name = (up.getvalue(), up.name) if up else ((sample.read_bytes(), sample.name)

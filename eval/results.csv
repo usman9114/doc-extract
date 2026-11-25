@@ -1,0 +1,101 @@
+doc,mode,flagged,reasons,total,subtotal,tax,items_tp,items_pred,items_gt,desc_exact,desc_norm,qty_n,qty_ok,items_ok,all_key_ok,all_ok,wrong_total,prompt_tokens,completion_tokens,cost_usd,latency_s,attempts
+0,text,True,line_items:required; total:sum,True,False,False,0,0,1,0,0,0,0,False,False,False,False,480,109,0.001025,2.8457999229431152,1
+2,text,False,,True,True,,0,2,2,0,0,0,0,False,True,False,False,476,198,0.001466,2.9216489791870117,1
+3,text,False,,True,True,,1,1,1,1,1,1,1,True,True,True,False,455,155,0.00123,2.7071664333343506,1
+4,text,True,total:required; line_items:required; document:ocr_conf,False,False,,0,0,3,0,0,0,0,False,False,False,True,444,98,0.000934,3.1631271839141846,1
+5,text,True,total:required; line_items:required,False,False,False,0,0,1,0,0,0,0,False,False,False,True,467,105,0.000992,3.954606771469116,1
+6,text,True,document:ocr_conf,True,,,0,1,3,0,0,0,0,False,True,False,False,454,149,0.001199,2.9008564949035645,1
+11,text,True,total:required; line_items:required; document:ocr_conf,False,,,0,0,1,0,0,0,0,False,False,False,True,477,98,0.000967,2.310610294342041,1
+13,text,True,total:required; line_items:required; document:ocr_conf,False,False,False,0,0,2,0,0,0,0,False,False,False,True,551,99,0.001046,2.4110941886901855,1
+14,text,True,subtotal:items_sum; document:ocr_conf,True,True,True,2,6,6,1,1,2,0,False,True,False,False,709,367,0.002544,4.550571441650391,1
+16,text,False,,True,True,True,2,5,2,0,0,2,2,False,True,False,False,590,320,0.00219,3.2204248905181885,1
+17,text,True,subtotal:items_sum,True,True,,5,7,6,4,4,5,5,False,True,False,False,523,422,0.002633,3.241576910018921,1
+19,text,True,total:required; line_items:required; document:ocr_conf,False,False,False,0,0,2,0,0,0,0,False,False,False,True,436,98,0.000926,1.8768916130065918,1
+20,text,True,total:required; line_items:required; document:ocr_conf,False,False,False,0,0,5,0,0,0,0,False,False,False,True,395,98,0.000885,2.021116256713867,1
+22,text,True,subtotal:items_sum,False,,,1,1,2,0,0,1,0,False,False,False,True,448,153,0.001213,2.234067678451538,1
+24,text,True,subtotal:items_sum,True,,,0,3,3,0,0,0,0,False,True,False,False,491,245,0.001716,1.8843185901641846,1
+25,text,True,document:ocr_conf,False,,,1,2,3,1,1,1,1,False,False,False,True,507,198,0.001497,2.575148820877075,1
+27,text,False,,True,True,True,2,2,2,1,1,0,0,True,True,True,False,474,194,0.001444,2.297029495239258,1
+28,text,True,subtotal:items_sum,True,True,True,1,3,3,0,0,1,1,False,True,False,False,479,247,0.001714,2.7170865535736084,1
+29,text,True,subtotal:items_sum,False,False,False,3,8,6,2,2,3,3,False,False,False,True,518,472,0.002878,4.7657835483551025,1
+31,text,True,subtotal:items_sum; total:sum,True,False,False,0,1,2,0,0,0,0,False,False,False,False,494,153,0.001259,4.258137464523315,1
+35,text,False,,False,,,3,3,4,3,3,3,3,False,False,False,True,517,251,0.001772,2.313964605331421,1
+38,text,True,total:required; line_items:required; document:ocr_conf,False,False,False,0,0,9,0,0,0,0,False,False,False,True,891,98,0.001381,5.934756278991699,1
+43,text,True,total:required; line_items:required; document:ocr_conf,False,False,False,0,0,1,0,0,0,0,False,False,False,True,1254,98,0.001744,6.850170850753784,1
+46,text,False,,True,,,2,2,2,2,2,2,2,True,True,True,False,520,203,0.001535,3.05716872215271,1
+51,text,False,,True,True,True,4,4,4,0,0,4,2,True,True,True,False,543,316,0.002123,2.4158682823181152,1
+53,text,True,total:required,False,False,False,0,3,3,0,0,0,0,False,False,False,True,503,241,0.001708,2.533649444580078,1
+54,text,True,document:ocr_conf,True,True,,1,1,1,1,1,0,0,True,True,True,False,476,151,0.001231,2.450166702270508,1
+57,text,True,total:required; line_items:required,,,,0,0,2,0,0,0,0,False,True,False,False,415,98,0.000905,1.7495522499084473,1
+58,text,True,total:required; line_items:required; document:ocr_conf,False,False,False,0,0,1,0,0,0,0,False,False,False,True,812,98,0.001302,4.480891227722168,1
+62,text,False,,True,,,0,1,2,0,0,0,0,False,True,False,False,443,151,0.001198,2.033386707305908,1
+64,text,True,total:required; line_items:required; document:ocr_conf,False,,,0,0,1,0,0,0,0,False,False,False,True,504,98,0.000994,3.7877516746520996,1
+67,text,True,total:required; line_items:required; document:ocr_conf,False,,,0,0,1,0,0,0,0,False,False,False,True,406,98,0.000896,2.2979490756988525,1
+68,text,True,total:required; line_items:required,False,,,0,0,1,0,0,0,0,False,False,False,True,432,98,0.000922,1.6771891117095947,1
+69,text,False,,True,,,3,3,3,2,2,3,1,True,True,True,False,524,248,0.001764,4.096240997314453,1
+71,text,True,subtotal:items_sum,False,,,1,1,1,1,1,1,0,True,False,False,True,442,154,0.001212,2.195650339126587,1
+75,text,True,total:required,False,False,False,0,4,6,0,0,0,0,False,False,False,True,475,287,0.00191,2.020314931869507,1
+77,text,False,,True,True,,1,1,1,1,1,1,1,True,True,True,False,448,152,0.001208,4.538600921630859,1
+79,text,False,,True,,,1,2,2,0,0,1,1,False,True,False,False,479,194,0.001449,2.39703106880188,1
+81,text,True,line_items[1]:qty_x_price,True,,,2,3,3,0,0,2,0,False,True,False,False,491,249,0.001736,4.2852702140808105,1
+82,text,True,subtotal:items_sum,True,True,,2,3,3,2,2,2,2,False,True,False,False,557,247,0.001792,2.983872175216675,1
+84,text,True,subtotal:items_sum; document:ocr_conf,True,True,True,0,2,2,0,0,0,0,False,True,False,False,600,192,0.00156,2.758967638015747,1
+86,text,True,subtotal:items_sum,True,True,,0,2,2,0,0,0,0,False,True,False,False,492,199,0.001487,2.222730875015259,1
+88,text,True,line_items[1]:qty_x_price,True,False,,1,2,2,1,1,1,1,False,False,False,False,487,208,0.001527,2.317119598388672,1
+89,text,True,total:required; line_items:required; document:ocr_conf,False,False,,0,0,2,0,0,0,0,False,False,False,True,552,98,0.001042,2.3215982913970947,1
+90,text,False,,True,True,True,1,1,1,1,1,1,1,True,True,True,False,534,161,0.001339,2.549919366836548,1
+93,text,False,,False,False,False,0,1,1,0,0,0,0,False,False,False,True,472,158,0.001262,2.261943817138672,1
+94,text,False,,True,True,True,4,4,4,3,3,4,3,True,True,True,False,590,287,0.002025,2.7508764266967773,1
+95,text,True,total:required; line_items:required; document:ocr_conf,False,False,False,0,0,2,0,0,0,0,False,False,False,True,453,98,0.000943,2.229552984237671,1
+97,text,False,,True,,,3,3,3,2,2,2,0,True,True,True,False,498,231,0.001653,3.6574506759643555,1
+99,text,False,,True,True,True,1,4,1,1,1,1,1,False,True,False,False,654,312,0.002214,2.8718724250793457,1
+0,vision,True,total:sum; line_items[1]:qty_x_price,True,True,False,1,1,1,0,1,1,1,True,False,False,False,779,155,0.001554,2.151137351989746,1
+2,vision,False,,True,True,,2,2,2,0,1,1,0,True,True,True,False,1320,195,0.002295,12.358303546905518,1
+3,vision,False,,True,True,,1,1,1,1,1,1,1,True,True,True,False,1320,162,0.00213,2.4053866863250732,1
+4,vision,True,subtotal:items_sum; total:sum,True,False,,1,3,3,0,0,1,1,False,False,False,False,1320,242,0.00253,2.6028687953948975,1
+5,vision,False,,True,True,True,0,1,1,0,0,0,0,False,True,False,False,1172,158,0.001962,2.417598247528076,1
+6,vision,False,,True,,,3,3,3,2,2,3,3,True,True,True,False,1320,247,0.002555,6.150291442871094,1
+11,vision,False,,True,,,1,1,1,1,1,1,1,True,True,True,False,1046,157,0.001831,2.37800931930542,1
+13,vision,True,total:sum,False,False,False,0,2,2,0,0,0,0,False,False,False,True,1320,212,0.00238,50.61966633796692,1
+14,vision,True,subtotal:items_sum; total:sum,True,True,False,3,6,6,3,3,3,3,False,False,False,False,1172,373,0.003037,3.0513904094696045,1
+16,vision,False,,True,True,True,2,5,2,1,1,2,2,False,True,False,False,1320,326,0.00295,6.6147496700286865,1
+17,vision,False,,True,True,,6,6,6,6,6,6,6,True,True,True,False,1431,391,0.003386,3.067579984664917,1
+19,vision,True,subtotal:items_sum; total:sum,True,False,True,1,2,2,1,1,1,0,False,False,False,False,1046,195,0.002021,2.267461061477661,1
+20,vision,True,total:sum,False,False,True,4,5,5,3,3,4,4,False,False,False,True,1320,320,0.00292,3.387458324432373,1
+22,vision,False,,True,,,2,2,2,1,1,2,2,True,True,True,False,1320,205,0.002345,2.520481824874878,1
+24,vision,False,,True,,,3,3,3,0,0,3,3,True,True,True,False,1046,243,0.002261,2.6578073501586914,1
+25,vision,False,,True,,,3,3,3,3,3,3,3,True,True,True,False,1320,249,0.002565,2.901364326477051,1
+27,vision,False,,True,True,True,2,2,2,2,2,0,0,True,True,True,False,1320,194,0.00229,2.9820570945739746,1
+28,vision,False,,True,True,True,3,3,3,3,3,3,3,True,True,True,False,1320,246,0.00255,2.7682762145996094,1
+29,vision,False,,True,True,True,5,8,6,5,5,5,5,False,True,False,False,1320,482,0.00373,3.8128855228424072,1
+31,vision,True,total:sum,True,True,False,2,3,2,2,2,2,2,False,False,False,False,1172,245,0.002397,3.3151321411132812,1
+35,vision,False,,True,,,4,4,4,3,3,4,4,True,True,True,False,1320,286,0.00275,2.8552615642547607,1
+38,vision,True,subtotal:items_sum,True,True,True,7,9,9,5,5,7,7,False,True,False,False,1172,514,0.003742,3.728959321975708,1
+43,vision,True,total:sum,True,True,True,0,1,1,0,0,0,0,False,True,False,False,1172,165,0.001997,6.264858722686768,1
+46,vision,False,,True,,,2,2,2,0,0,2,2,True,True,True,False,1320,209,0.002365,2.5567755699157715,1
+51,vision,False,,True,True,True,4,4,4,3,3,4,4,True,True,True,False,1172,311,0.002727,3.199380397796631,1
+53,vision,True,total:sum,True,True,False,3,3,3,3,3,3,3,True,False,False,False,1320,247,0.002555,49.96873760223389,1
+54,vision,False,,True,True,,1,1,1,1,1,0,0,True,True,True,False,1320,154,0.00209,2.3847124576568604,1
+57,vision,False,,,,,2,2,2,2,2,0,0,True,True,True,False,1046,190,0.001996,3.0494112968444824,1
+58,vision,True,subtotal:items_sum,False,False,True,1,2,1,1,1,1,1,False,False,False,True,1172,192,0.002132,2.096675395965576,1
+62,vision,False,,True,,,2,2,2,2,2,2,2,True,True,True,False,1320,200,0.00232,49.160717725753784,1
+64,vision,False,,True,,,1,1,1,1,1,0,0,True,True,True,False,1320,149,0.002065,2.291494369506836,1
+67,vision,True,date:parse,True,,,1,1,1,1,1,1,1,True,True,True,False,779,151,0.001534,2.0287530422210693,1
+68,vision,False,,True,,,1,1,1,1,1,0,0,True,True,True,False,1046,147,0.001781,2.2048795223236084,1
+69,vision,False,,True,,,3,3,3,3,3,3,3,True,True,True,False,1172,250,0.002422,2.807342767715454,1
+71,vision,True,total:sum,False,,,1,1,1,0,0,1,0,True,False,False,True,1046,159,0.001841,2.4328091144561768,1
+75,vision,False,,True,True,True,5,6,6,4,4,5,5,False,True,False,False,779,380,0.002679,3.108123540878296,1
+77,vision,False,,True,True,,1,1,1,1,1,1,1,True,True,True,False,1172,152,0.001932,5.921748638153076,1
+79,vision,False,,True,,,2,2,2,2,2,2,2,True,True,True,False,1046,202,0.002056,4.011992692947388,1
+81,vision,False,,True,,,3,3,3,0,0,3,3,True,True,True,False,1172,245,0.002397,2.8884902000427246,1
+82,vision,False,,True,True,,3,3,3,3,3,3,3,True,True,True,False,1320,245,0.002545,49.508893966674805,1
+84,vision,False,,True,True,True,2,2,2,2,2,2,2,True,True,True,False,1061,198,0.002051,2.398932933807373,1
+86,vision,False,,True,True,,2,2,2,2,2,2,2,True,True,True,False,1046,194,0.002016,3.192307710647583,1
+88,vision,False,,True,True,,2,2,2,2,2,2,2,True,True,True,False,1320,206,0.00235,2.586014986038208,1
+89,vision,False,,True,True,,1,1,2,0,0,1,0,False,True,False,False,1320,158,0.00211,5.785192251205444,1
+90,vision,False,,True,True,True,1,1,1,1,1,1,1,True,True,True,False,1431,155,0.002206,2.30110764503479,1
+93,vision,False,,True,True,False,1,1,1,1,1,1,1,True,False,False,False,1320,158,0.00211,2.145036220550537,1
+94,vision,False,,True,True,True,4,4,4,3,4,4,4,True,True,True,False,1320,297,0.002805,3.4737377166748047,1
+95,vision,False,,False,True,True,2,2,2,2,2,2,2,True,False,False,True,1320,199,0.002315,2.513857126235962,1
+97,vision,False,,True,,,3,3,3,2,2,2,2,True,True,True,False,769,256,0.002049,2.402587890625,1
+99,vision,False,,True,True,True,1,7,1,1,1,1,1,False,True,False,False,1320,425,0.003445,6.514516115188599,1
