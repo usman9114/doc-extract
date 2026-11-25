@@ -12,6 +12,10 @@ CURRENCIES = set(
 )
 
 
+# Tesseract averages ~50 on phone photos of thermal receipts; flag only clearly bad scans.
+OCR_CONF_MIN = 40
+
+
 def _close(a: float, b: float, rel: float = 0.01, abs_tol: float = 0.011) -> bool:
     return abs(a - b) <= max(abs_tol, rel * max(abs(a), abs(b)))
 
@@ -58,7 +62,7 @@ def validate(doc: Document, ocr_conf: float | None = None) -> Validation:
 
     conf = 1.0 - 0.25 * len({i.field.split("[")[0] for i in issues})
     if ocr_conf is not None:
-        if ocr_conf < 60:
+        if ocr_conf < OCR_CONF_MIN:
             bad("document", "ocr_conf", f"mean OCR confidence is low ({ocr_conf:.0f}/100)")
         conf *= min(1.0, ocr_conf / 80)
     conf = round(max(0.0, min(1.0, conf)), 2)

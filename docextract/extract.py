@@ -23,7 +23,7 @@ Rules:
 - date is ISO YYYY-MM-DD, currency an ISO 4217 code (infer it only from a printed symbol or
   country-specific wording such as Rp -> IDR, else null).
 - subtotal is the amount before tax. tax is the tax/VAT amount. discount is a positive number.
-  service_charge is a service fee if printed. total is the final amount due on the document.
+  service_charge is a service fee if printed. total is the final amount due on the document, NOT the cash tendered, amount paid or change.
 - line_items is a list of {"description", "qty", "unit_price", "amount"}. amount is the line
   total as printed; qty and unit_price are null if not printed. List each purchased item once,
   in order. Do not list tax, totals, payment or change lines as items. Modifier lines that

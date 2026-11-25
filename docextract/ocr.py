@@ -1,8 +1,10 @@
 """Tesseract OCR that keeps word boxes."""
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass
 
+os.environ.setdefault("OMP_THREAD_LIMIT", "1")  # tesseract threads fight with other work
 import pytesseract
 from PIL import Image
 
