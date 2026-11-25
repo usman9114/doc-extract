@@ -50,6 +50,7 @@ def score_doc(res: dict, gt: dict) -> dict:
     d = res["document"]
     row = {"flagged": res["validation"]["needs_review"],
            "reasons": "; ".join(f'{x["field"]}:{x["rule"]}' for x in res["validation"]["issues"])}
+    row["pred_total"], row["gt_total"] = d["total"], gt["total"]
     key_ok = []
     for k in ("total", "subtotal", "tax"):
         if gt[k] is None:

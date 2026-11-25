@@ -56,11 +56,17 @@ for mode, name in (("text", "A"), ("vision", "B")):
     r = R[(R["mode"] == mode)]
     wt = r[r.wrong_total == True]  # noqa: E712
     cor = r[r.wrong_total == False]  # noqa: E712
-    md.append(f"- Mode {name}: {len(wt)} documents had a wrong total; validation flagged {int(wt.flagged.sum())} of them. "
+    empty = wt[wt.pred_total.isna()]
+    val = wt[wt.pred_total.notna()]
+    md.append(f"- Mode {name}: {len(wt)} documents had a wrong total ({len(empty)} with no total extracted at all, "
+              f"{len(val)} with a wrong value). Validation flagged {int(wt.flagged.sum())} of the {len(wt)}, "
+              f"including {int(val.flagged.sum())} of the {len(val)} wrong values. "
               f"It also flagged {int(cor.flagged.sum())} of {len(cor)} documents whose total was right "
               "(false alarms: CORD receipts often carry discounts or service charges the rules do not model).")
-    for _, x in wt[wt.flagged].head(3).iterrows():
-        md.append(f"  - doc {int(x.doc)}: `{x.reasons}`")
+    for _, x in val[val.flagged].head(4).iterrows():
+        md.append(f"  - doc {int(x.doc)}: extracted total {x.pred_total:g}, ground truth {x.gt_total:g}, flagged by `{x.reasons}`")
+    for _, x in val[~val.flagged].head(2).iterrows():
+        md.append(f"  - missed: doc {int(x.doc)}: extracted total {x.pred_total:g}, ground truth {x.gt_total:g}, not flagged")
 (HERE / "results.md").write_text("\n".join(md) + "\n")
 print("\n".join(md))
 

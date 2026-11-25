@@ -27,11 +27,16 @@ Model: `anthropic/claude-haiku-4.5 via OpenRouter`. Dataset: CORD v2 (CC-BY-4.0)
 
 ## Validation catching wrong totals
 
-- Mode A: 22 documents had a wrong total; validation flagged 20 of them. It also flagged 14 of 28 documents whose total was right (false alarms: CORD receipts often carry discounts or service charges the rules do not model).
-  - doc 4: `total:required; line_items:required; document:ocr_conf`
-  - doc 5: `total:required; line_items:required`
-  - doc 11: `total:required; line_items:required; document:ocr_conf`
-- Mode B: 5 documents had a wrong total; validation flagged 4 of them. It also flagged 9 of 45 documents whose total was right (false alarms: CORD receipts often carry discounts or service charges the rules do not model).
-  - doc 13: `total:sum`
-  - doc 20: `total:sum`
-  - doc 58: `subtotal:items_sum`
+- Mode A: 22 documents had a wrong total (16 with no total extracted at all, 6 with a wrong value). Validation flagged 20 of the 22, including 4 of the 6 wrong values. It also flagged 14 of 28 documents whose total was right (false alarms: CORD receipts often carry discounts or service charges the rules do not model).
+  - doc 22: extracted total 49000, ground truth 40000, flagged by `subtotal:items_sum`
+  - doc 25: extracted total 26000, ground truth 43000, flagged by `document:ocr_conf`
+  - doc 29: extracted total 119722, ground truth 145900, flagged by `subtotal:items_sum`
+  - doc 71: extracted total 499000, ground truth 198000, flagged by `subtotal:items_sum`
+  - missed: doc 35: extracted total 36000, ground truth 54000, not flagged
+  - missed: doc 93: extracted total 15777, ground truth 17999, not flagged
+- Mode B: 5 documents had a wrong total (0 with no total extracted at all, 5 with a wrong value). Validation flagged 4 of the 5, including 4 of the 5 wrong values. It also flagged 9 of 45 documents whose total was right (false alarms: CORD receipts often carry discounts or service charges the rules do not model).
+  - doc 13: extracted total 52, ground truth 51300, flagged by `total:sum`
+  - doc 20: extracted total 377291, ground truth 377859, flagged by `total:sum`
+  - doc 58: extracted total 100000, ground truth 60500, flagged by `subtotal:items_sum`
+  - doc 71: extracted total 220000, ground truth 198000, flagged by `total:sum`
+  - missed: doc 95: extracted total 62000, ground truth 61799, not flagged
