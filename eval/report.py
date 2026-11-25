@@ -76,9 +76,9 @@ for bars in (b1, b2):
     for b in bars:
         ax.text(b.get_x() + b.get_width() / 2, b.get_height() + 1, f"{b.get_height():.0f}", ha="center", color="white", fontsize=9)
 ax.set_xticks(list(x)); ax.set_xticklabels(labels, color="white", fontsize=9)
-ax.set_ylim(0, 112); ax.set_ylabel("accuracy, %", color="white"); ax.tick_params(colors="white")
+ax.set_ylim(0, 118); ax.set_ylabel("accuracy, %", color="white"); ax.tick_params(colors="white")
 for s in ("top", "right"): ax.spines[s].set_visible(False)
 for s in ("left", "bottom"): ax.spines[s].set_color("#555")
 ax.set_title(f"Field accuracy on {A['docs']} held-out CORD receipts", color="white", loc="left")
-ax.legend(facecolor="#0f1115", labelcolor="white", edgecolor="#555", loc="lower left")
+ax.legend(facecolor="#0f1115", labelcolor="white", edgecolor="#555", loc="upper center", ncol=2, bbox_to_anchor=(0.5, 1.0))
 fig.tight_layout(); fig.savefig(ROOT / "assets" / "accuracy_chart.png")
