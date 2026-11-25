@@ -14,13 +14,10 @@ PDF_DPI = 200
 def load_pages(data: bytes, filename: str = "") -> list[Image.Image]:
     """Return one RGB image per page (PDFs are rendered, multipage supported)."""
     if data[:5] == b"%PDF-" or filename.lower().endswith(".pdf"):
-        import fitz  # pymupdf
+        import pypdfium2 as pdfium
 
-        doc = fitz.open(stream=data, filetype="pdf")
-        pages = []
-        for p in doc:
-            pix = p.get_pixmap(dpi=PDF_DPI)
-            pages.append(Image.frombytes("RGB", (pix.width, pix.height), pix.samples))
+        pdf = pdfium.PdfDocument(data)
+        pages = [pdf[i].render(scale=PDF_DPI / 72).to_pil().convert("RGB") for i in range(len(pdf))]
         return pages
     img = Image.open(io.BytesIO(data))
     n = getattr(img, "n_frames", 1)

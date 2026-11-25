@@ -88,6 +88,6 @@ Without Docker (needs `tesseract-ocr` installed): `python -m venv .venv && .venv
 
 - **CORD v2** (naver-clova-ix/cord-v2 on Hugging Face), CC-BY-4.0, by Naver CLOVA. Used for the eval and downloaded by `scripts/download_data.sh`; the dataset is not in this repo. `assets/sample_receipt.png` is one CORD test image, included under CC-BY-4.0 with this attribution.
 - **SROIE** was left out: its license terms could not be confirmed as permitting this use, so only CORD is used.
-- Code: MIT, see `LICENSE`. Dependencies (Tesseract: Apache-2.0; PyMuPDF is AGPL-3.0 or commercial, so if you ship this commercially, swap it for `pdf2image` or buy a license) are used as installed from PyPI/apt.
+- Code: MIT, see `LICENSE`. Dependencies are permissively licensed (Tesseract Apache-2.0, pypdfium2 Apache-2.0/BSD-3, Pydantic, FastAPI, Streamlit, OpenCV, Pillow and the others MIT/BSD/Apache) and are used as installed from PyPI/apt.
 
 Need your documents automated? Hire me on Upwork: https://www.upwork.com/freelancers/~014d8e815fea10ea82
