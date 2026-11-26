@@ -26,7 +26,7 @@ PDF / image
 - `api/app.py`: FastAPI, `POST /extract` (file upload, `?mode=text|vision`, `?format=json|csv`).
 - `ui/app.py`: Streamlit, image with OCR boxes on the left, fields on the right, failing fields marked, CSV and JSON download.
 - `eval/run_eval.py`: field-level accuracy, mode A vs B.
-- The LLM backend is chosen with env vars (`LLM_PROVIDER=openrouter|anthropic|openai`, `LLM_MODEL`). The eval below ran through OpenRouter.
+- The LLM backend is chosen with env vars: `LLM_PROVIDER=zai|openrouter|anthropic|openai`, `LLM_MODEL` (text) and `LLM_VISION_MODEL` (images). The default is Z.ai's free GLM Flash models (`glm-4.5-flash` for text, `glm-4.6v-flash` for images).
 
 ![side by side](assets/side_by_side.png)
 
@@ -34,29 +34,32 @@ The receipt above is a real eval case: the model read the cash tendered line as 
 
 ## Results
 
-Data: 50 receipts drawn with a fixed seed (42) from the CORD v2 test split. They were never used while writing prompts or choosing thresholds; those were tuned on a handful of receipts from the validation split. Model: `anthropic/claude-haiku-4.5` via OpenRouter for both modes, Tesseract 5 for OCR. Everything here is copied from [`eval/results.md`](eval/results.md), produced by `python -m eval.run_eval` (per-document rows in `eval/results.csv`).
+Data: 50 receipts drawn with a fixed seed (42) from the CORD v2 test split, the same 50 for every model. They were never used while writing prompts or choosing thresholds; those were tuned on a handful of receipts from the validation split. OCR is Tesseract 5. Everything here is copied from [`eval/results.md`](eval/results.md), produced by `python -m eval.run_eval` (per-document rows in `eval/results*.csv`).
 
-| Metric | A: OCR text to LLM | B: image to vision LLM |
-|---|---|---|
-| Total amount correct | 55% | 90% |
-| Subtotal correct (33 receipts that have one) | 48% | 85% |
-| Tax correct (23 receipts that have one) | 39% | 74% |
-| Line items F1 (amount + description match) | 44% | 83% |
-| Item quantity correct (matched items) | 70% | 96% |
-| Receipts with total, subtotal and tax all correct | 50% | 76% |
-| Receipts with everything correct incl. all line items | 20% | 60% |
-| Flagged for review | 68% | 26% |
-| Auto-approved receipts with total, subtotal and tax all correct | 88% | 95% |
-| Median latency per receipt | 2.6 s | 2.9 s |
-| LLM cost per 100 receipts | US$0.15 | US$0.24 |
+| Metric | A: GLM-4.5-Flash (OCR text) | A: Haiku 4.5 (OCR text) | B: Haiku 4.5 (image) |
+|---|---|---|---|
+| Total amount correct | 53% | 55% | 90% |
+| Subtotal correct (33 receipts that have one) | 42% | 48% | 85% |
+| Tax correct (23 receipts that have one) | 39% | 39% | 74% |
+| Line items F1 (amount + description match) | 41% | 44% | 83% |
+| Item quantity correct (matched items) | 76% | 70% | 96% |
+| Receipts with total, subtotal and tax all correct | 46% | 50% | 76% |
+| Receipts with everything correct incl. all line items | 14% | 20% | 60% |
+| Flagged for review | 66% | 68% | 26% |
+| Auto-approved receipts with total, subtotal and tax all correct | 76% | 88% | 95% |
+| Median latency per receipt | 9.3 s | 2.6 s | 2.9 s |
+| LLM cost per 100 receipts | US$0.00 (free tier) | US$0.15 | US$0.24 |
+
+GLM ran on the Z.ai API (free Flash models, see the [pricing page](https://docs.z.ai/guides/overview/pricing); token counts are still recorded in the results). Haiku ran through OpenRouter, and its cost is what OpenRouter reported per call. **The GLM image mode (`glm-4.6v-flash`) is not measured**: for about an hour of retries every request to it returned "service overloaded" (code 1305), so there is no column for it. The command to fill it in later is under "Run it".
 
 ![accuracy](assets/accuracy_chart.png)
 
 What this says, honestly:
 
-- Vision beats OCR-then-LLM by a wide margin here, mostly because CORD is phone photos of crumpled thermal receipts and Tesseract reads them badly (16 of 50 receipts yielded no usable total in mode A). On clean scans or digital PDFs, mode A is much closer and cheaper; this eval does not measure that.
-- Validation earns its keep. Mode B had 5 wrong totals and validation flagged 4; mode A had 22 wrong or missing totals and flagged 20 (16 of those were "no total found"; of the 6 wrong values, 4 were flagged). It also raises false alarms: it flagged 9 of 45 receipts in B whose total was right, because CORD receipts carry discounts, rounding and service charges that the rules only partly model. Examples are listed in `eval/results.md`, for instance a receipt where the model returned a total of 100000 against a true 60500, caught because the line items summed to 155000 against a subtotal of 95000.
-- Cost is the amount OpenRouter reported per call. Latency is the median wall-clock time per receipt (OCR plus LLM for mode A). Means are not reported because the first full run hit transient OpenRouter credit errors that triggered backoff retries.
+- On the same OCR text, free GLM-4.5-Flash lands within a few points of Haiku on totals (53% vs 55%), at no cost but with slower responses (median 9.3 s, partly waiting out the free tier's overload retries).
+- Vision beats OCR-then-LLM by a wide margin here, mostly because CORD is phone photos of crumpled thermal receipts and Tesseract reads them badly (16 of 50 receipts yielded no usable total in mode A with Haiku, 15 with GLM). On clean scans or digital PDFs, mode A is much closer and cheaper; this eval does not measure that.
+- Validation earns its keep. Haiku mode B had 5 wrong totals and validation flagged 4; Haiku mode A had 22 wrong or missing totals and flagged 20 (16 of those were "no total found"; of the 6 wrong values, 4 were flagged); GLM mode A had 23 and flagged 20 (5 of its 8 wrong values). It also raises false alarms: it flagged 9 of 45 receipts in B whose total was right, because CORD receipts carry discounts, rounding and service charges that the rules only partly model. Examples are listed in `eval/results.md`, for instance a receipt where the model returned a total of 100000 against a true 60500, caught because the line items summed to 155000 against a subtotal of 95000.
+- Latency is the median wall-clock time per receipt (OCR plus LLM for mode A). Means are not reported because the runs hit transient provider errors (OpenRouter credit errors, Z.ai overload) that triggered backoff retries.
 - Results vary a little between runs and machines: OCR output and LLM replies are not bit-for-bit repeatable, so a re-run of the same receipt can differ from the cached eval.
 - 50 receipts is a small sample, so a few points of difference are noise.
 
@@ -74,15 +77,15 @@ CORD annotates menu items, subtotal, tax and total. So the eval scores `total`, 
 
 ```bash
 bash scripts/download_data.sh      # CORD (only needed for the eval)
-cp .env.example .env               # add OPENROUTER_API_KEY (or ANTHROPIC_API_KEY / OPENAI_API_KEY)
+cp .env.example .env               # add ZAI_API_KEY (default, free GLM models) or set LLM_PROVIDER + OPENROUTER/ANTHROPIC/OPENAI key
 docker compose up --build          # UI on :8501, API on :8000
 ```
 
 Open http://localhost:8501 and upload a receipt (or press "Use sample receipt"). API: `curl -F file=@receipt.jpg localhost:8000/extract`.
 
-Without Docker (needs `tesseract-ocr` installed): `python -m venv .venv && .venv/bin/pip install -r requirements.txt`, then `streamlit run ui/app.py` and `uvicorn api.app:app`. Re-run the eval with `python -m eval.run_eval --mode both && python eval/report.py` (replies are cached in `eval/cache`).
+Without Docker (needs `tesseract-ocr` installed): `python -m venv .venv && .venv/bin/pip install -r requirements.txt`, then `streamlit run ui/app.py` and `uvicorn api.app:app`. Re-run the eval with `python -m eval.run_eval --mode both --tag _glm && python eval/report.py` for the default GLM models, or `LLM_PROVIDER=openrouter python -m eval.run_eval --mode both` for the Haiku columns (replies are cached in `eval/cache`, so an interrupted run resumes).
 
-`docker compose up --build` was tested: both containers started and served the UI, `/health` and `/extract`. The test machine's proxy needed an extra CA certificate during `pip install` inside the build, which is not part of the committed Dockerfile; a normal network does not need it.
+`docker compose up --build` was tested: both containers started and served the UI, `/health` and `/extract`. The test machine's proxy needed an extra CA certificate during `pip install` inside the build, which is not part of the committed Dockerfile; a normal network does not need it. That test ran before the default switched to Z.ai GLM; the switch only changes environment defaults, and the containers were not rebuilt after it. The demo GIF was also recorded with Haiku via OpenRouter.
 
 ## Data and licenses
 

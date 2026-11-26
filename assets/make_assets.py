@@ -70,14 +70,17 @@ def cover():
         d.rounded_rectangle([x, 560, x + 430, 860], 20, fill=(26, 29, 36))
         d.text((x + 36, 600), big, font=font(100, True), fill=GREEN)
         d.multiline_text((x + 36, 740), small, font=font(28), fill=FG, spacing=8)
-    d.text((100, 940), f"Measured on {B['docs']} held-out CORD receipts, claude-haiku-4.5. "
-                       f"OCR-text mode: {100 * A['total_acc']:.0f}% totals, ${A['cost_per_100']:.2f} per 100.",
+    d.text((100, 920), f"Measured on {B['docs']} held-out CORD receipts, claude-haiku-4.5 (image input).",
            font=font(26), fill=DIM)
+    G = {s["mode"]: s for s in json.loads((ROOT / "eval/summary_glm.json").read_text())}["text"]
+    d.text((100, 965), f"Free option: GLM-4.5-Flash on OCR text, {100 * G['total_acc']:.0f}% totals at $0 "
+                       f"(Haiku on the same OCR text: {100 * A['total_acc']:.0f}%).", font=font(26), fill=GREEN)
     d.text((100, 1010), "Tesseract OCR  |  Pydantic schema  |  FastAPI  |  Streamlit  |  Docker", font=font(26), fill=DIM)
     d.text((100, 1090), "Demo on public data (CORD, CC-BY-4.0)", font=font(24), fill=DIM)
     im.save(ROOT / "assets/cover_1600x1200.png")
 
 
 if __name__ == "__main__":
-    side_by_side()
+    if "--cover-only" not in sys.argv:
+        side_by_side()
     cover()
