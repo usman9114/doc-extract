@@ -56,7 +56,10 @@ md = [f"# Evaluation results\n\nDataset: CORD v2 (CC-BY-4.0), the same {n} recei
       "GLM columns: Z.ai API, `glm-4.5-flash` (text, thinking disabled) and `glm-4.6v-flash` (image); "
       "both are free Flash models (https://docs.z.ai/guides/overview/pricing), so cost is $0 while token counts "
       "are still recorded. GLM latency includes waiting out the free tier's 'service overloaded' (HTTP 429, code 1305) "
-      "retries.\n",
+      "retries." + ("" if any(c[0].startswith("B: GLM") for c in COLS) else
+      " The GLM image run (`glm-4.6v-flash`) is not in this table: during the run window (about an hour of retries) "
+      "every request to it returned 'service overloaded' (code 1305), so it could not be measured. "
+      "Re-run with `LLM_PROVIDER=zai python -m eval.run_eval --mode both --tag _glm`; finished items are cached.") + "\n",
       "| Metric | " + " | ".join(c[0] for c in COLS) + " |", "|---" * (len(COLS) + 1) + "|"]
 for label, key, f in rows:
     if key is None:

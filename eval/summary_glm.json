@@ -1,0 +1,31 @@
+[
+ {
+  "mode": "text",
+  "docs": 50,
+  "total_acc": 0.5306122448979592,
+  "subtotal_acc": 0.42424242424242425,
+  "tax_acc": 0.391304347826087,
+  "n_subtotal": 33,
+  "n_tax": 23,
+  "item_precision": 0.46,
+  "item_recall": 0.36220472440944884,
+  "item_f1": 0.4052863436123349,
+  "desc_exact": 0.5434782608695652,
+  "desc_norm": 0.5434782608695652,
+  "qty_acc": 0.7619047619047619,
+  "doc_key_fields_ok": 0.46,
+  "doc_all_ok": 0.14,
+  "flagged_pct": 0.66,
+  "wrong_total_docs": 23,
+  "wrong_total_caught": 20,
+  "auto_approved_pct": 0.33999999999999997,
+  "auto_approved_key_ok": 0.7647058823529411,
+  "auto_approved_all_ok": 0.29411764705882354,
+  "latency_s_mean": 12.242135486602784,
+  "latency_s_p50": 9.327032685279846,
+  "cost_per_100": 0.0,
+  "cost_total": 0.0,
+  "tokens_in_mean": 475.72,
+  "tokens_out_mean": 161.78
+ }
+]
