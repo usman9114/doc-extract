@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/banner.webp" alt="doc-extract banner (illustration)" width="100%"></p>
+
 # doc-extract
 
 Turn invoices and receipts into validated, structured data with OCR + LLMs.
