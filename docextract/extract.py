@@ -69,9 +69,9 @@ def extract(mode: str, ocr_text: str | None = None, image_jpeg: bytes | None = N
         v.issues.insert(0, Issue(
             field="document", rule="parse", message=f"LLM reply never parsed: {err}"))
         v.needs_review, v.confidence = True, 0.0
-        return Result(document=doc, validation=v, mode=mode, model=llm.model_name(),
+        return Result(document=doc, validation=v, mode=mode, model=llm.model_name(vision=mode == "vision"),
                       latency_s=time.time() - t0, prompt_tokens=pt, completion_tokens=ct,
                       cost_usd=cost, attempts=retries + 1)
-    return Result(document=doc, validation=validate(doc, ocr_conf), mode=mode, model=llm.model_name(),
+    return Result(document=doc, validation=validate(doc, ocr_conf), mode=mode, model=llm.model_name(vision=mode == "vision"),
                   latency_s=time.time() - t0, prompt_tokens=pt, completion_tokens=ct,
                   cost_usd=cost, attempts=attempt)

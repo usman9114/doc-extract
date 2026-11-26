@@ -29,3 +29,7 @@ def test_bad_date_and_currency():
 def test_parse_amount():
     assert parse_amount("60.000") == 60000 and parse_amount("Rp. 5.455") == 5455
     assert parse_amount("12.50") == 12.5 and parse_amount("11,000") == 11000
+
+
+def test_null_description_is_accepted():
+    assert LineItem.model_validate({"description": None, "amount": 5}).description == ""

@@ -27,7 +27,7 @@ CACHE.mkdir(parents=True, exist_ok=True)
 
 def run_doc(df, i: int, mode: str, split: str) -> dict:
     """Run one document through the pipeline (cached). Returns Result json + ocr_words."""
-    model = llm.model_name().replace("/", "_")
+    model = llm.model_name(vision=mode == "vision").replace("/", "_")
     sig = hashlib.md5(SYSTEM.encode()).hexdigest()[:6]
     f = CACHE / f"{split}_{i}_{mode}_{model}_{sig}.json"
     if f.exists():

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 class LineItem(BaseModel):
@@ -12,6 +12,11 @@ class LineItem(BaseModel):
     qty: Optional[float] = None
     unit_price: Optional[float] = None
     amount: Optional[float] = Field(None, description="Line total as printed")
+
+    @field_validator("description", mode="before")
+    @classmethod
+    def _none_to_empty(cls, v):
+        return "" if v is None else v
 
 
 class Document(BaseModel):
